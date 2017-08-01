@@ -32,4 +32,14 @@ class CoursesController < ApplicationController
     redirect to "/courses/#{@course.id}"
   end
 
+  delete '/courses/:id/delete' do
+    @course = Course.find_by_id(params[:id])
+    if logged_in?
+      @course.delete
+      redirect '/courses'
+    else
+      redirect '/login'
+    end
+  end
+
 end

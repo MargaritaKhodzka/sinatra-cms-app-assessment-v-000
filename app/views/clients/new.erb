@@ -10,5 +10,16 @@
   <label for="client_notes">Notes: </label>
   <textarea rows="4" cols="23"></textarea>
   <br><br>
+
+  <h3>Select course(s):</h3>
+  <% @courses.each do |course| %>
+  <input type="checkbox" name="client[course_ids][]" id="course_<%= course.id %>" value="<%= course.id %>"><%= course.name %></input>
+  <% end %>
+
+  <h3>and/or, create a new course:</h3>
+  <label for="course[name]">Course Name:</label>
+  <input type="text" name="new_course" id="course[name]">
+  <br><br>
+
   <input type="submit" value="Add New Client">
 </form>

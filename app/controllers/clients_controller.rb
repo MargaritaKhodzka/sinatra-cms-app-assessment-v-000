@@ -24,7 +24,7 @@ class ClientsController < ApplicationController
       @client.courses << Course.create(name: params[:new_course])
     end
     @client.save
-    redirect to "/clients/#{@client.id}"
+    redirect "/clients/#{@client.id}"
   end
 
   get '/clients/:id' do
@@ -46,6 +46,16 @@ class ClientsController < ApplicationController
     end
     @client.save
     redirect "/clients/#{@client.id}"
+  end
+
+  delete '/clients/:id/delete' do
+    @client = Client.find_by_id(params[:id])
+    if logged_in?
+      @client.delete
+      redirect '/clients'
+    else
+      redirect '/login'
+    end
   end
 
 end

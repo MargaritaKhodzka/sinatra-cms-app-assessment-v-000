@@ -1,7 +1,14 @@
 <h1>Client</h1>
-<%= @client.full_name %>
-<%= @client.age %>
-<%= @client.notes %>
+<p>Name: <%= @client.full_name %></p>
+<p>Age: <%= @client.age %></p>
+<p>Notes: <%= @client.notes %></p>
+
+<h3>Course(s): </h3>
+
+<ul>
+  <% @client.courses.each do |course| %>
+  <li><%= course.name %></li>
+  <% end %>
 
 <form action="/clients/<%= @client.id %>/delete" method="post">
   <input id="hidden" type="hidden" name="_method" value="delete">
