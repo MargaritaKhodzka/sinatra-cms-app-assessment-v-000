@@ -11,7 +11,6 @@ class ClientsController < ApplicationController
 
   get '/clients/new' do
     if logged_in?
-      @clients = Client.all
       @courses = Course.all
       erb :'/clients/new'
     else
@@ -20,7 +19,10 @@ class ClientsController < ApplicationController
   end
 
   post '/clients' do
-    @client = Client.create(full_name: params[:full_name], age: params[:age], notes: params[:notes])
+    @client = Client.create(params[:client])
+    if !params[:new_course].empty?
+      @client.courses << Course.create(name: params[:new_course])
+    end
     @client.save
     redirect to "/clients/#{@client.id}"
   end
@@ -28,6 +30,22 @@ class ClientsController < ApplicationController
   get '/clients/:id' do
     @client = Client.find_by_id(params[:id])
     erb :'/clients/show'
+  end
+
+  get '/clients/:id/edit' do
+    @client = Client.find(params[:id])
+    @courses = Course.all
+    erb :'/clients/edit'
+  end
+
+  patch '/clients/:id' do
+    @client = Client.find(params[:id])
+    @client.update(params[:client])
+    if !params[:course][:name].empty?
+      @client.courses.create(params[:course])
+    end
+    @client.save
+    redirect "/clients/#{@client.id}"
   end
 
 end

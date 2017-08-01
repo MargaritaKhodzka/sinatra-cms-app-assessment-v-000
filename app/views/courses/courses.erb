@@ -2,6 +2,7 @@
 <ul>
   <% @courses.each do |course| %>
   <li>
+    <p>Course name: <%= course.name %></p>
     <p>Course date: <%= course.date %></p>
     <p>Course number of hours: <%= course.num_of_hours %></p>
     <p>Course status: <%= course.status %>
