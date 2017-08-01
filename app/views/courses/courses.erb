@@ -1,5 +1,5 @@
 <h1>Private Etiquette Courses</h1>
-<ul>
+<ol>
   <% @courses.each do |course| %>
   <li>
     <p>Course name: <%= course.name %></p>
@@ -8,6 +8,6 @@
     <p>Course status: <%= course.status %>
   </li>
   <% end %>
-</ul>
+</ol>
 
 <h3><a href="/courses/new">Add a new course</a></h3>

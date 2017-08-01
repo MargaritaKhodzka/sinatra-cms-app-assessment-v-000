@@ -24,7 +24,7 @@ class ClientsController < ApplicationController
       @client.courses << Course.create(name: params[:new_course])
     end
     @client.save
-    redirect "/clients/#{@client.id}"
+    redirect to "/clients/#{@client.id}"
   end
 
   get '/clients/:id' do
@@ -33,19 +33,19 @@ class ClientsController < ApplicationController
   end
 
   get '/clients/:id/edit' do
-    @client = Client.find(params[:id])
+    @client = Client.find_by_id(params[:id])
     @courses = Course.all
     erb :'/clients/edit'
   end
 
   patch '/clients/:id' do
-    @client = Client.find(params[:id])
+    @client = Client.find_by_id(params[:id])
     @client.update(params[:client])
     if !params[:course][:name].empty?
       @client.courses.create(params[:course])
     end
     @client.save
-    redirect "/clients/#{@client.id}"
+    redirect to "/clients/#{@client.id}"
   end
 
   delete '/clients/:id/delete' do

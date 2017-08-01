@@ -9,6 +9,7 @@
   <% @client.courses.each do |course| %>
   <li><%= course.name %></li>
   <% end %>
+</ul>
 
 <form action="/clients/<%= @client.id %>/delete" method="post">
   <input id="hidden" type="hidden" name="_method" value="delete">
