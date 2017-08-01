@@ -2,21 +2,8 @@
 
 <ul>
 <% @clients.each do |client| %>
-  <li>
-    <p>Client Name: <%= client.name %></p>
-    <p>Age: <%= client.age %></p>
-    <p>Status:
-      <% if client.status == 0 %>
-      Confirmed_Date
-      <% elsif client.status == 1 %>
-      Paid
-      <% elsif client.status == 2 %>
-      Submittted_Booking_Form
-      <% else %>
-      Completed_Course
-      <% end %></p>
-    </li>
+<li><a href="/clients/<%= client.id %>"><%= client.full_name %></a></li>
 <% end %>
 </ul>
 
-<!-- <a href="/clients/new">Add a new client</a> -->
+<h3><a href="/clients/new">Add a new client</a></h3>
