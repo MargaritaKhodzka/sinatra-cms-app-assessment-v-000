@@ -4,18 +4,9 @@
   <li>
     <p>Course date: <%= course.date %></p>
     <p>Course number of hours: <%= course.num_of_hours %></p>
-    <p>Course status:
-      <% if course.status == confirmed %>
-      Date confirmed
-      <% elsif couse.status == paid%>
-      Paid
-      <% elsif course.status == booked %>
-      Filled out booking form
-      <% elsif course.status == emailed %>
-      Sent confirmation email
-      <else>
-      Completed
-      <% end %></p>
-    </li>
+    <p>Course status: <%= course.status %>
+  </li>
   <% end %>
 </ul>
+
+<h3><a href="/courses/new">Add a new course</a></h3>
