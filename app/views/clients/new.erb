@@ -1,4 +1,4 @@
-<h1>Add a new client</h1>
+<h3>Add a new client</h3>
 
 <form method="POST" action="/clients">
   <label for="client_full_name">Client Name: </label>
@@ -11,12 +11,13 @@
   <textarea rows="4" cols="23"></textarea>
   <br><br>
 
-  <h3>Select course(s):</h3>
+  <h4>Select course(s):</h4>
   <% @courses.each do |course| %>
   <input type="checkbox" name="client[course_ids][]" id="course_<%= course.id %>" value="<%= course.id %>"><%= course.name %></input>
   <% end %>
+  <br><br>
 
-  <h3>and/or, create a new course:</h3>
+  <h4>and/or, create a new course:</h4>
   <label for="course[name]">Course Name:</label>
   <input type="text" name="new_course" id="course[name]">
   <br><br>

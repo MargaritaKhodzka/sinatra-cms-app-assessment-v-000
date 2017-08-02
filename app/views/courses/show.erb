@@ -1,18 +1,18 @@
-<h2><%= @course.name %></h2>
+<h3><%= @course.name %></h3>
 <p>Date: <%= @course.date %></p>
 <p>Hours: <%= @course.num_of_hours %></p>
 <p>Status: <%= @course.status %></p>
 
 <p>Client: <a href="/clients/<%= @course.client.id %>"><%= @course.client.full_name %></a></p>
 <br>
+
+<a href="/courses">Back to the list</a>
+<br><br>
+
 <a href="/courses/<%=@course.id%>/edit">Edit</a>
 <br><br>
 
 <form action="/courses/<%= @course.id %>/delete" method="post">
   <input id="hidden" type="hidden" name="_method" value="delete">
   <input type="submit" value="Delete Course">
-<br><br>
-
-<a href="/courses">Back to the list</a>
-
 </form>
