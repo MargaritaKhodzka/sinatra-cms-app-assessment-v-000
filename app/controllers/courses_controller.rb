@@ -1,37 +1,44 @@
 class CoursesController < ApplicationController
 
   get '/courses' do
+    redirect_if_not_logged_in
     @courses = Course.all
     erb :'/courses/courses'
   end
 
   get '/courses/new' do
+    redirect_if_not_logged_in
+    #@error_message = params[:error]
     erb :'/courses/new'
   end
 
   post '/courses' do
+    redirect_if_not_logged_in
     @course = Course.create(params[:course])
-    @course.save
-    redirect to "/courses/#{@course.id}"
+    redirect "/courses"
   end
 
   get '/courses/:id' do
+    redirect_if_not_logged_in
     @course = Course.find_by_id(params[:id])
     erb :'/courses/show'
   end
 
   get '/courses/:id/edit' do
+    redirect_if_not_logged_in
+    #@error_message = params[:error]
     @course = Course.find_by_id(params[:id])
     erb :'/courses/edit'
   end
 
   patch '/courses/:id' do
+    redirect_if_not_logged_in
     @course = Course.find_by_id(params[:id])
-    @course.update(name: params[:name], date: params[:course][:date], num_of_hours: params[:course][:num_of_hours], status: params[:status])
+    @course.update(params.select{|c|c=="name" || c=="date" || c=="num_of_hours" || c=="status"})
     @course.save
-    redirect to "/courses/#{@course.id}"
+    redirect "/courses/#{@course.id}"
   end
-
+  
   delete '/courses/:id/delete' do
     @course = Course.find_by_id(params[:id])
     if logged_in?

@@ -1,26 +1,25 @@
-<h1>Current Course Information</h1>
+<h1>Edit <%= @course.name %></h1>
 
-<p>Course: <%= @course.name %></p>
 <p>Date: <%= @course.date %></p>
 <p>Number of hours: <%= @course.num_of_hours %></p>
 <p>Status: <%= @course.status %></p>
 
-<form action="/courses/<%= @course.id %>" method="post">
+<form action="/courses/<%= @course.id %>" method="POST">
   <input type="hidden" name="_method" id="hidden" value="patch">
 
   <h2>Edit the course</h2>
 
-  <label for="course_name">New Name: </label>
-  <input type="text" name="course[name]" id="course_name">
+  <label>New Name: </label>
+  <input type="text" name="course[name]" id="course_name" value="<%= @course.name %>">
   <br><br>
-  <label for="course_date">New Date: </label>
-  <input type="text" name="course[date]" id="course_date">
+  <label>New Date: </label>
+  <input type="date" name="course[date]" id="course_date" value="<%= @course.date %>">
   <br><br>
-  <label for="num_of_hours">New Number of Hours: </label>
-  <input type="text" name="course[num_of_hours]" id="course_num_of_hours">
+  <label>New Number of Hours: </label>
+  <input type="number" name="course[num_of_hours]" id="course_num_of_hours" value="<%= @course.num_of_hours %>">
   <br><br>
-  <label for="status">New Status: </label>
-  <input type="text" name="course[status]" id="course_status">
+  <label>New Status: </label>
+  <input type="text" name="course[status]" id="course_status" value="<%= @course.status %>">
   <br><br>
   <input type="submit" value="Update Course">
 </form>

@@ -1,12 +1,10 @@
 <h1>Private Etiquette Courses</h1>
 <ol>
   <% @courses.each do |course| %>
-  <li>
-    <p>Course name: <%= course.name %></p>
-    <p>Course date: <%= course.date %></p>
-    <p>Course number of hours: <%= course.num_of_hours %></p>
-    <p>Course status: <%= course.status %>
-  </li>
+  <li><p><%= course.name %> - <%= course.num_of_hours %> hours - <%= course.status %></p>
+    <p>Date: <%= course.date %></p></li>
+  <a href="/courses/<%= course.id %>/edit">Edit</a>
+  <br><br>
   <% end %>
 </ol>
 

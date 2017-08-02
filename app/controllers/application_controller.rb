@@ -2,12 +2,11 @@ require './config/environment'
 
 class ApplicationController < Sinatra::Base
 
-  enable :sessions
-  set :session_secret, "my_application_secret"
-
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
+    enable :sessions
+    set :session_secret, "clienttracker"
   end
 
   get '/' do
@@ -15,6 +14,13 @@ class ApplicationController < Sinatra::Base
   end
 
   helpers do
+
+    def redirect_if_not_logged_in
+      if !logged_in?
+        redirect "/login?error = You have to log in first"
+      end
+    end
+
     def logged_in?
       !!session[:user_id]
     end

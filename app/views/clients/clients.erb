@@ -2,7 +2,9 @@
 
 <ol>
 <% @clients.each do |client| %>
-<li><%= client.full_name %></li>
+  <li><p><%= client.full_name %> - <%= client.age %> years old. <%= client.notes %></p></li>
+  <a href="/clients/<%= client.id %>/edit">Edit</a>
+  <br><br>
 <% end %>
 </ol>
 

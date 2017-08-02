@@ -1,21 +1,20 @@
-<h1>Current Client Information</h1>
+<h1>Edit <%= @client.full_name %></h1>
 
-<p>Name: <%= @client.full_name %></p>
 <p>Age: <%= @client.age %></p>
 <p>Notes: <%= @client.notes %></p>
 
-<form action="/clients/<%= @client.id %>" method="post">
+<form action="/clients/<%= @client.id %>" method="POST">
   <input type="hidden" name="_method" id="hidden" value="patch">
 
 <h2>Update client information</h2>
 
-  <label for="client[full_name]">Client Name: </label>
-  <input type="text" name="client[full_name]" id="client_full_name">
+  <label>Client Name: </label>
+  <input type="text" name="full_name" id="client_full_name" value="<%= @client.full_name%>">
   <br><br>
-  <label for="client[age]">New Age: </label>
-  <input type="text" name="client[age]" id="client_age">
+  <label>New Age: </label>
+  <input type="number" name="age" id="client_age" value="<%= @client.age %>">
   <br><br>
-  <label for="client[notes]">Add Notes: </label>
+  <label>Add Notes: </label>
   <textarea rows="4" cols="23"></textarea>
   <br><br>
 
@@ -29,5 +28,5 @@
   <input type="text" name="course[name]" id="new_course">
   <br><br>
 
-  <input type="submit" value="Edit Client">
+  <input type="submit" value="Update Client">
 </form>

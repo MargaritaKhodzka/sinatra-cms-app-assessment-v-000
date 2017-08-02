@@ -1,28 +1,42 @@
 class UsersController < ApplicationController
 
-  get '/signup' do
-    if logged_in?
+  get '/users/:id' do
+    if !logged_in?
       redirect '/clients'
+    end
+
+    @user = User.find_by_id(params[:id])
+    if !@user.nil? && @user == current_user
+      erb :'users/show'
     else
-      erb :'/users/create'
+      redirect '/clients'
+    end
+  end
+
+  get '/signup' do
+    if !session[:user_id]
+      erb :'users/create'
+    else
+      redirect to '/clients'
     end
   end
 
   post '/signup' do
     if params[:username] == "" || params[:password] == "" || params[:email] == ""
-      redirect '/signup'
+      redirect to '/signup'
      else
-       user = User.create(params)
-       session[:user_id] = user.id
+       @user = User.create(username: params[:username], password: params[:password], email: params[:email])
+       session[:user_id] = @user.id
        redirect '/clients'
      end
   end
 
   get '/login' do
-    if logged_in?
-      redirect '/clients'
+    @error_message = params[:error]
+    if !session[:user_id]
+      erb :'users/login'
     else
-      erb :'/users/login'
+      redirect '/clients'
     end
   end
 
@@ -32,23 +46,17 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect '/clients'
     else
-      redirect '/login'
+      redirect to '/login'
     end
   end
 
   get '/logout' do
-    if logged_in?
-      session.clear
-      redirect '/login'
+    if session[:user_id] !=nil
+      session.destroy
+      redirect to '/login'
     else
-      redirect '/'
+      redirect to '/'
     end
-  end
-
-  get '/users/:slug' do
-    @user = User.find_by_slug(params[:slug])
-    @clients = @user.clients
-    erb :'users/show'
   end
 
 end
