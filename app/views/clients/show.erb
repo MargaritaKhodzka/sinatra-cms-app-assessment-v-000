@@ -6,7 +6,7 @@
 
 <ul>
   <% @client.courses.each do |course| %>
-  <li><%= course.name %></li>
+  <li><a href="/courses/<%= course.id %>"><%= course.name %></a></li>
   <% end %>
 </ul>
 <br><br>

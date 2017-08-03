@@ -8,16 +8,10 @@
   <input type="text" name="client[age]" id="client_age">
   <br><br>
   <label for="client_notes">Notes: </label>
-  <textarea rows="4" cols="23"></textarea>
+  <input type="text" name="client[notes]" id="client_notes">
   <br><br>
 
-  <h4>Select course(s):</h4>
-  <% @courses.each do |course| %>
-  <input type="checkbox" name="client[course_ids][]" id="course_<%= course.id %>" value="<%= course.id %>"><%= course.name %></input>
-  <% end %>
-  <br><br>
-
-  <h4>and/or, create a new course:</h4>
+  <h4>Course</h4>
   <label for="course[name]">Course Name:</label>
   <input type="text" name="new_course" id="course[name]">
   <br><br>
