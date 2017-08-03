@@ -3,6 +3,6 @@ class Client < ActiveRecord::Base
   has_many :courses
 
   def self.valid_params?(params)
-    return !params[:full_name].empty? && !params[:age].empty? && !params[:notes].empty? 
+    return !params[:full_name].blank? && !params[:age].blank? && !params[:notes].blank?
   end
 end
