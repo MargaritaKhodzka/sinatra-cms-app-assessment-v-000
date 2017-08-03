@@ -8,7 +8,7 @@ Specs:
 - [x] Include user accounts - user can sign up, log in, and log out
 - [x] Ensure that users can't modify content created by other users - have logged_in? helper method
 - [x] Include user input validations - have current_user helper method
-- [ ] Display validation failures to user with error message (example form URL e.g. /posts/new)
+- [x] Display validation failures to user with error message (example form URL e.g. /posts/new)
 - [x] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
 
 Confirm
