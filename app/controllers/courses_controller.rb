@@ -2,44 +2,41 @@ class CoursesController < ApplicationController
 
   get '/courses' do
     redirect_if_not_logged_in
-    @courses = Course.all
+    @courses = current_user.courses
     erb :'/courses/courses'
   end
 
   get '/courses/new' do
     redirect_if_not_logged_in
     @error_message = params[:error]
+    @courses = current_user.courses
     erb :'/courses/new'
   end
 
   post '/courses' do
     redirect_if_not_logged_in
-    unless Course.valid_params?(params)
-      redirect "/courses/new?error=invalid course info"
-    end
-    @course = Course.create(params[:course])
+    @course = current_user.courses.create(params[:course])
+    @course.user = current_user
+    @course.save
     redirect "/courses"
   end
 
   get '/courses/:id' do
     redirect_if_not_logged_in
-    @course = Course.find_by_id(params[:id])
+    @course = current_user.courses.find_by_id(params[:id])
     erb :'/courses/show'
   end
 
   get '/courses/:id/edit' do
     redirect_if_not_logged_in
     @error_message = params[:error]
-    @course = Course.find_by_id(params[:id])
+    @course = current_user.courses.find_by_id(params[:id])
     erb :'/courses/edit'
   end
 
   patch '/courses/:id' do
     redirect_if_not_logged_in
-    @course = Course.find_by_id(params[:id])
-    unless Course.valid_params?(params)
-      redirect "/courses/#{@course.id}/edit?error=invalid course info"
-    end
+    @course = current_user.courses.find_by_id(params[:id])
     @course.update(params.select{|c|c=="name" || c=="date" || c=="num_of_hours" || c=="status"})
     @course.save
     redirect "/courses/#{@course.id}"
@@ -48,7 +45,7 @@ class CoursesController < ApplicationController
   delete '/courses/:id/delete' do
     redirect_if_not_logged_in
     @error_message = params[:error]
-    @course = Course.find_by_id(params[:id])
+    @course = current_user.courses.find_by_id(params[:id])
     if logged_in?
       @course.delete
       redirect '/courses'

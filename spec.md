@@ -16,3 +16,11 @@ Confirm
 - [x] Your commit messages are meaningful
 - [x] You made the changes in a commit that relate to the commit message
 - [x] You don't include changes in a commit that aren't related to the commit message
+
+Next Attempt
+- [] Make sure that another user can not see clients that aren't theirs
+- [] A user can only edit and delete a client that is theirs (do not show the buttons or allow a user to access clients/:id/edit)
+- [] Make a link to the clients show page (clients/:id)
+- [x] Add a Navbar to show links to /clients & /courses when a user is logged_in in your layout.erb
+- [x] Update clients table to have a user_id, and remove course_id from clients table
+- [x] Add a has many through relationship for the clients and courses table called client_courses

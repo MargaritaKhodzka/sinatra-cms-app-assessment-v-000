@@ -3,7 +3,7 @@
 
 <ol>
   <% @courses.each do |course| %>
-  <li><p><%= course.name %> - <%= course.num_of_hours %> hours - <%= course.status %></p>
+  <li><p><a href="/courses/<%= course.id %>"><%= course.name %> - <%= course.num_of_hours %> hours. Status: <%= course.status %></p>
     <p>Date: <%= course.date %></p></li>
   <a href="/courses/<%= course.id %>/edit">Edit</a>
   <br><br>
