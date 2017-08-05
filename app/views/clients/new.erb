@@ -1,19 +1,22 @@
 <h3>Add a new client</h3>
 
 <form method="POST" action="/clients">
-  <label for="client_full_name">Client Name: </label>
-  <input type="text" name="client[full_name]" id="client_full_name">
+  <label>Client Name: </label>
+  <input type="text" name="full_name">
   <br><br>
-  <label for="client_age">Client Age: </label>
-  <input type="text" name="client[age]" id="client_age">
+  <label>Client Age: </label>
+  <input type="text" name="age">
   <br><br>
-  <label for="client_notes">Notes: </label>
-  <input type="text" name="client[notes]" id="client_notes">
+  <label>Notes: </label>
+  <input type="text" name="notes">
   <br><br>
 
   <h4>Course</h4>
-  <label for="course[name]">Course Name:</label>
+  <label>Course Name:</label>
   <input type="text" name="new_course" id="course[name]">
+  <br><br>
+
+  <a href="/clients">Back to the list</a>
   <br><br>
 
   <input type="submit" value="Add New Client">

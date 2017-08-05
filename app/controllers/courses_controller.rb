@@ -15,8 +15,9 @@ class CoursesController < ApplicationController
 
   post '/courses' do
     redirect_if_not_logged_in
-    @course = current_user.courses.create(params[:course])
+    @course = current_user.courses.create(name: params[:name], date: params[:date], num_of_hours: params[:num_of_hours], status: params[:status])
     @course.user = current_user
+    @course.clients << current_user.clients.create(full_name: params[:new_client])
     @course.save
     redirect "/courses"
   end
@@ -38,6 +39,9 @@ class CoursesController < ApplicationController
     redirect_if_not_logged_in
     @course = current_user.courses.find_by_id(params[:id])
     @course.update(params.select{|c|c=="name" || c=="date" || c=="num_of_hours" || c=="status"})
+    if !params[:client][:name].blank?
+      @course.clients.create(params[:client])
+    end
     @course.save
     redirect "/courses/#{@course.id}"
   end
