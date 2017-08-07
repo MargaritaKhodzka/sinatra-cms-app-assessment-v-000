@@ -1,3 +1,9 @@
+<% if @client && @client.errors %>
+  <% @client.errors.full_messages.each do |message| %>
+    <p><%= message %></p>
+  <% end %>
+<% end %>
+
 <h3>Edit <%= @client.full_name %></h3>
 
 <p>Age: <%= @client.age %></p>

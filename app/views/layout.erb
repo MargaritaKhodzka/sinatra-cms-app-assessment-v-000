@@ -9,11 +9,11 @@
       <% if logged_in? %>
         <p>Welcome, <%= current_user.username %></p>
         <a href="/logout">Log Out</a>
+        <h4><a href="/clients">Clients</a>   <a href="/courses">Courses</a></h4>
       <% else %>
-        <a href="/signup">Sign Up</a><br />
+        <a href="/signup">Sign Up</a>
         <a href="/login">Sign In</a>
       <% end %>
-      <h4><a href="/clients">Clients</a>   <a href="/courses">Courses</a></h4>
     </nav>
 
     <div class="container">

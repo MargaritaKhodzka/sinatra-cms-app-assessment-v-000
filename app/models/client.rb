@@ -3,7 +3,5 @@ class Client < ActiveRecord::Base
   has_many :client_courses
   has_many :courses, through: :client_courses
 
-  def self.valid_params?(params)
-    return !params[:full_name].blank? && !params[:age].blank? && !params[:notes].blank?
-  end
+  validates :full_name, :age, :notes, presence: true
 end

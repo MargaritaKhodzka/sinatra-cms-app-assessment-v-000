@@ -17,17 +17,23 @@ class ClientsController < ApplicationController
 
   post '/clients' do
     redirect_if_not_logged_in
-    @client = current_user.clients.create(full_name: params[:full_name], age: params[:age], notes: params[:notes])
+    @client = current_user.clients.build(full_name: params[:full_name], age: params[:age], notes: params[:notes])
     @client.user = current_user
-    @client.courses << current_user.courses.create(name: params[:new_course])
-    @client.save
-    redirect '/clients'
+    if @client.save
+      @client.courses << current_user.courses.create(name: params[:new_course])
+      redirect '/clients'
+    else
+      erb :'/clients/new'
+    end
   end
 
   get '/clients/:id' do
     redirect_if_not_logged_in
-    @client = current_user.clients.find_by_id(params[:id])
-    erb :'/clients/show'
+    if @client = current_user.clients.find_by_id(params[:id])
+      erb :'/clients/show'
+    else
+      redirect '/clients'
+    end
   end
 
   get '/clients/:id/edit' do
@@ -45,8 +51,11 @@ class ClientsController < ApplicationController
     if !params[:course][:name].empty?
       @client.courses.create(params[:course])
     end
-    @client.save
-    redirect "/clients/#{@client.id}"
+    if @client.save
+      redirect "/clients/#{@client.id}"
+    else
+      erb :'/clients/edit'
+    end
   end
 
   delete '/clients/:id/delete' do

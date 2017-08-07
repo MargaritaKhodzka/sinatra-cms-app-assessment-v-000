@@ -15,17 +15,23 @@ class CoursesController < ApplicationController
 
   post '/courses' do
     redirect_if_not_logged_in
-    @course = current_user.courses.create(name: params[:name], date: params[:date], num_of_hours: params[:num_of_hours], status: params[:status])
+    @course = current_user.courses.build(name: params[:name], date: params[:date], num_of_hours: params[:num_of_hours], status: params[:status])
     @course.user = current_user
-    @course.clients << current_user.clients.create(full_name: params[:new_client])
-    @course.save
-    redirect "/courses"
+    if @course.save
+      @course.clients << current_user.clients.create(full_name: params[:new_client], age: params[:new_client], notes: params[:new_client])
+      redirect '/courses'
+    else
+      erb :'/courses/new'
+    end
   end
 
   get '/courses/:id' do
     redirect_if_not_logged_in
-    @course = current_user.courses.find_by_id(params[:id])
-    erb :'/courses/show'
+    if @course = current_user.courses.find_by_id(params[:id])
+      erb :'/courses/show'
+    else
+      redirect '/courses'
+    end
   end
 
   get '/courses/:id/edit' do
@@ -42,8 +48,11 @@ class CoursesController < ApplicationController
     if !params[:client][:name].blank?
       @course.clients.create(params[:client])
     end
-    @course.save
-    redirect "/courses/#{@course.id}"
+    if @course.save
+      redirect "/courses/#{@course.id}"
+    else
+      erb :'/courses/edit'
+    end
   end
 
   delete '/courses/:id/delete' do
