@@ -39,22 +39,28 @@ class ClientsController < ApplicationController
   get '/clients/:id/edit' do
     redirect_if_not_logged_in
     @error_message = params[:error]
-    @client = current_user.clients.find_by_id(params[:id])
-    @courses = current_user.courses.all
-    erb :'/clients/edit'
+    if @client = current_user.clients.find_by_id(params[:id])
+      @courses = current_user.courses
+      erb :'/clients/edit'
+    else
+      redirect to '/clients'
+    end
   end
 
   patch '/clients/:id' do
     redirect_if_not_logged_in
-    @client = current_user.clients.find_by_id(params[:id])
-    @client.update(params.select{|c|c=="full_name" || c=="age" || c=="notes"})
-    if !params[:course][:name].empty?
-      @client.courses.create(params[:course])
-    end
-    if @client.save
-      redirect "/clients/#{@client.id}"
+    if @client = current_user.clients.find_by_id(params[:id])
+      @client.update(params.select{|c|c=="full_name" || c=="age" || c=="notes"})
+      if !params[:course][:name].empty?
+        @client.courses.create(params[:course])
+      end
+      if @client.save
+        redirect "/clients/#{@client.id}"
+      else
+        erb :'/clients/edit'
+      end
     else
-      erb :'/clients/edit'
+      redirect to '/clients'
     end
   end
 
@@ -62,6 +68,7 @@ class ClientsController < ApplicationController
     redirect_if_not_logged_in
     @error_message = params[:error]
     @client = current_user.clients.find_by_id(params[:id])
+    @courses = current_user.courses.all
     if logged_in?
       @client.delete
       redirect '/clients'
